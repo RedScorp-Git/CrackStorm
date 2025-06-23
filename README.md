@@ -30,8 +30,8 @@
 ### 1. Clone repository
 
 ```bash
-git clone https://github.com/scorp/crackstorm.git
-cd crackstorm
+git clone https://github.com/RedScorp-Git/CrackStorm.git
+cd CrackStorm
 ```
 
 ### 2. Install dependencies
