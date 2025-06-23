@@ -2,105 +2,116 @@
 
 ![CrackStorm Logo](https://img.shields.io/badge/CrackStorm-v1.0-990000?style=for-the-badge)
 
-**CrackStorm** ist ein professionelles Tool für das verteilte Passwort-Cracking mit Hashcat über mehrere Rechner im lokalen Netzwerk. Entwickelt für Cybersecurity-Studium und Penetrationstests.
+**CrackStorm** is a professional tool for distributed password cracking with Hashcat across multiple computers in the local network. Developed for cybersecurity studies and penetration testing.
 
 ## 🚀 Features
 
-- **Distributed Computing**: Verteilt Hashcat-Jobs automatisch über mehrere Clients
-- **Real-time Monitoring**: Live-Status aller verbundenen Clients
-- **GPU & CPU Support**: Automatische Erkennung von NVIDIA/AMD GPUs
-- **Load Balancing**: Intelligente Arbeitsverteilung basierend auf Skip/Limit
-- **Interactive Shell**: Benutzerfreundliche Kommandozeile für Job-Management
-- **Robust Networking**: Automatische Wiederverbindung und Heartbeat-Monitoring
-- **Professional UI**: Farbcodierte Ausgaben mit CrackStorm-Branding
+- **Distributed Computing**: Automatically distributes Hashcat jobs across multiple clients
+- **Real-time Monitoring**: Live status of all connected clients
+- **GPU & CPU Support**: Automatic detection of NVIDIA/AMD GPUs
+- **Load Balancing**: Intelligent work distribution based on Skip/Limit
+- **Interactive Shell**: User-friendly command line for job management
+- **Robust Networking**: Automatic reconnection and heartbeat monitoring
+- **Professional UI**: Color-coded outputs with CrackStorm branding
 
-## 📋 Voraussetzungen
+## 📋 Requirements
 
-### Host-System (Server)
+### Host System (Server)
 - Python 3.6+
-- Required packages: `psutil`, `socket`, `threading`
+- Required packages: psutil, socket, threading
 
-### Client-Systeme
+### Client Systems
 - Python 3.6+
-- **Hashcat** installiert und im PATH verfügbar
-- Required packages: `psutil`, `socket`, `subprocess`
+- **Hashcat** installed and available in PATH
+- Required packages: psutil, socket, subprocess
 
 ## 🔧 Installation
 
-### 1. Repository klonen
+### 1. Clone repository
+
 ```bash
 git clone https://github.com/scorp/crackstorm.git
 cd crackstorm
 ```
 
-### 2. Dependencies installieren
+### 2. Install dependencies
+
 ```bash
 pip install psutil
 ```
 
-### 3. Hashcat installieren (nur auf Clients)
+### 3. Install Hashcat (clients only)
 
 #### Ubuntu/Debian:
+
 ```bash
 sudo apt update
 sudo apt install hashcat
 ```
 
 #### Windows:
-1. Download von [hashcat.net](https://hashcat.net/hashcat/)
-2. Zu PATH hinzufügen
+1. Download from [hashcat.net](https://hashcat.net/hashcat/)
+2. Add to PATH
 
 #### macOS:
+
 ```bash
 brew install hashcat
 ```
 
-## 🚀 Nutzung
+## 🚀 Usage
 
-### Host starten (Server)
+### Start host (server)
+
 ```bash
 python3 host.py
 ```
 
-Mit spezifischem Port:
+With specific port:
+
 ```bash
 python3 host.py -p 8888
 ```
 
-### Client verbinden
+### Connect client
+
 ```bash
 python3 client.py <HOST_IP>
 ```
 
-Mit spezifischem Port:
+With specific port:
+
 ```bash
 python3 client.py <HOST_IP> -p 8888
 ```
 
-### Hashcat-Test
+### Hashcat test
+
 ```bash
 python3 client.py --test-hashcat <HOST_IP>
 ```
 
-## 📖 Kommandos (Interactive Mode)
+## 📖 Commands (Interactive Mode)
 
-| Kommando | Beschreibung |
+| Command | Description |
 |----------|-------------|
-| `status` | Zeigt Cluster-Status und verbundene Clients |
-| `crack <hashfile> <wordlist>` | Startet distributed Hashcat-Job |
-| `results` | Zeigt alle gefundenen Passwörter |
-| `help` | Zeigt Hilfe-Menü |
-| `quit` / `exit` | Beendet CrackStorm |
+| status | Shows cluster status and connected clients |
+| crack <hashfile> <wordlist> | Starts distributed Hashcat job |
+| results | Shows all found passwords |
+| help | Shows help menu |
+| quit / exit | Exits CrackStorm |
 
-## 🔨 Beispiel-Workflow
+## 🔨 Example Workflow
 
-### 1. Host starten
+### 1. Start host
+
 ```bash
-# Terminal 1 (Host-Rechner)
+# Terminal 1 (Host machine)
 python3 host.py
 ```
 
-### 2. Clients verbinden
+### 2. Connect clients
+
 ```bash
 # Terminal 2 (Client 1)
 python3 client.py 192.168.1.100
@@ -112,22 +123,25 @@ python3 client.py 192.168.1.100
 python3 client.py 192.168.1.100
 ```
 
-### 3. Job starten
+### 3. Start job
+
 ```bash
 CrackStorm> status
 CrackStorm> crack hashes.txt rockyou.txt
 CrackStorm> results
 ```
 
-## 📁 Beispiel-Dateien
+## 📁 Example Files
 
-### Hash-Datei (hashes.txt)
+### Hash file (hashes.txt)
+
 ```
 5d41402abc4b2a76b9719d911017c592
 098f6bcd4621d373cade4e832627b4f6
 ```
 
-### Test-Wordlist (test_passwords.txt)
+### Test wordlist (test_passwords.txt)
+
 ```
 password
 123456
@@ -136,85 +150,90 @@ hello
 test
 ```
 
-## 🔐 Unterstützte Hash-Modi
+## 🔐 Supported Hash Modes
 
-Aktuell unterstützt CrackStorm:
-- MD5 (Mode 0) - Standard
-- Weitere Modi können einfach konfiguriert werden
+Currently CrackStorm supports:
+- MD5 (Mode 0) - Default
+- Additional modes can be easily configured
 
-**Erweiterung für andere Hash-Modi:**
+**Extension for other hash modes:**
+
 ```python
-# In execute_hashcat_job() ändern:
+# Change in execute_hashcat_job():
 cmd = [
     'hashcat',
     '-m', '1000',  # NTLM
-    # oder
+    # or
     '-m', '1400',  # SHA256
     # etc.
     ...
 ]
 ```
 
-## 🛡️ Sicherheitshinweise
+## 🛡️ Security Notes
 
-⚠️ **WICHTIG: Nur für autorisierte Penetrationstests verwenden!**
+⚠️ **IMPORTANT: Use only for authorized penetration tests!**
 
-- Verwenden Sie CrackStorm nur in kontrollierten Umgebungen
-- Stellen Sie sicher, dass Sie die Berechtigung haben, Passwörter zu cracken
-- Verwenden Sie starke Netzwerksicherheit in Produktionsumgebungen
-- Monitoring des Netzwerkverkehrs empfohlen
+- Use CrackStorm only in controlled environments
+- Ensure you have permission to crack passwords
+- Use strong network security in production environments
+- Network traffic monitoring recommended
 
 ## 🐛 Troubleshooting
 
-### Client kann sich nicht verbinden
+### Client cannot connect
+
 ```bash
-# Firewall prüfen
+# Check firewall
 sudo ufw allow 9999
 
-# Netzwerk testen
+# Test network
 ping <host_ip>
 telnet <host_ip> 9999
 ```
 
-### Hashcat nicht gefunden
+### Hashcat not found
+
 ```bash
-# Installation prüfen
+# Check installation
 which hashcat
 hashcat --version
 
-# PATH prüfen
+# Check PATH
 echo $PATH
 ```
 
-### Performance-Optimierung
+### Performance optimization
+
 ```bash
-# GPU-Status prüfen
+# Check GPU status
 nvidia-smi  # NVIDIA
 rocm-smi    # AMD
 
-# CPU-Auslastung monitoren
+# Monitor CPU usage
 htop
 ```
 
-## 📊 System-Monitoring
+## 📊 System Monitoring
 
-CrackStorm zeigt automatisch:
-- Anzahl verbundener Clients
-- CPU/GPU-Informationen
-- Aktive Jobs
-- Netzwerkstatus
-- Gefundene Passwörter
+CrackStorm automatically shows:
+- Number of connected clients
+- CPU/GPU information
+- Active jobs
+- Network status
+- Found passwords
 
-## 🔧 Erweiterte Konfiguration
+## 🔧 Advanced Configuration
 
-### Custom Hashcat-Parameter
+### Custom Hashcat parameters
+
 ```python
 # In client.py - execute_hashcat_job()
 cmd = [
     'hashcat',
     '-m', '0',
     '-a', str(attack_mode),
-    '--force',           # GPU-Warnings ignorieren
+    '--force',           # Ignore GPU warnings
     '--opencl-device-types', '1,2',  # CPU + GPU
     '--workload-profile', '3',       # High Performance
     hash_file,
@@ -224,48 +243,49 @@ cmd = [
 ]
 ```
 
-### Netzwerk-Timeouts anpassen
+### Adjust network timeouts
+
 ```python
 # In host.py
-client_socket.settimeout(30)  # Erhöhen für langsamere Netzwerke
+client_socket.settimeout(30)  # Increase for slower networks
 
 # In client.py  
-self.socket.settimeout(60)    # Heartbeat-Intervall
+self.socket.settimeout(60)    # Heartbeat interval
 ```
 
-## 📈 Performance-Tipps
+## 📈 Performance Tips
 
-1. **GPU-Optimierung**: Stellen Sie sicher, dass alle Clients GPU-Unterstützung haben
-2. **Netzwerk**: Verwenden Sie Gigabit-Ethernet für beste Performance
-3. **Wordlists**: Große Wordlists auf lokale SSDs kopieren
-4. **RAM**: Mindestens 8GB RAM pro Client empfohlen
-5. **Cooling**: Überwachen Sie die Temperaturen bei längeren Jobs
+1. **GPU Optimization**: Ensure all clients have GPU support
+2. **Network**: Use Gigabit Ethernet for best performance
+3. **Wordlists**: Copy large wordlists to local SSDs
+4. **RAM**: Minimum 8GB RAM per client recommended
+5. **Cooling**: Monitor temperatures during longer jobs
 
 ## 🤝 Contributing
 
-1. Fork das Repository
-2. Feature-Branch erstellen (`git checkout -b feature/AmazingFeature`)
-3. Änderungen committen (`git commit -m 'Add some AmazingFeature'`)
-4. Branch pushen (`git push origin feature/AmazingFeature`)
-5. Pull Request erstellen
+1. Fork the repository
+2. Create feature branch (git checkout -b feature/AmazingFeature)
+3. Commit changes (git commit -m 'Add some AmazingFeature')
+4. Push branch (git push origin feature/AmazingFeature)
+5. Create Pull Request
 
-## 📝 Lizenz
+## 📝 License
 
-Dieses Projekt steht unter der MIT License - siehe [LICENSE](LICENSE) für Details.
+This project is under the MIT License - see [LICENSE](LICENSE) for details.
 
 ## ⚠️ Disclaimer
 
-CrackStorm ist ausschließlich für Bildungszwecke und autorisierte Sicherheitstests entwickelt worden. Die Autoren übernehmen keine Verantwortung für den Missbrauch dieses Tools. Verwenden Sie es nur mit ausdrücklicher Berechtigung auf Systemen, die Sie besitzen oder für die Sie autorisiert sind.
+CrackStorm is developed exclusively for educational purposes and authorized security testing. The authors assume no responsibility for misuse of this tool. Use it only with explicit permission on systems you own or are authorized to test.
 
-## 🎓 Entwickelt für Cybersecurity-Studium
+## 🎓 Developed for Cybersecurity Studies
 
-Dieses Tool wurde speziell für Cybersecurity-Studiengänge entwickelt, um:
-- Distributed Computing-Konzepte zu demonstrieren
-- Praktische Erfahrungen mit Penetrationstesting-Tools zu sammeln
-- Netzwerk-Programmierung zu erlernen
-- Professionelle Cybersecurity-Workflows zu verstehen
+This tool was specifically developed for cybersecurity degree programs to:
+- Demonstrate distributed computing concepts
+- Gain practical experience with penetration testing tools
+- Learn network programming
+- Understand professional cybersecurity workflows
 
 ---
 
 **CrackStorm v1.0** - Distributed Hashcat Cluster Manager  
-🔴 Powered by Cybersecurity Education
+Powered and Developed by RedScorp OS Team
